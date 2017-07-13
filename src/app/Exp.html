@@ -1,0 +1,9 @@
+<p-growl [value]="G"></p-growl>
+<p-menubar [model]="I" ></p-menubar>
+<p-confirmDialog header="Confirme" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+<p-dialog header="Modificar" [(visible)]="Dis" [responsive]="true">
+    <label class="Usr">Introduzca el nuevo nombre</label><br/>
+    <input type="text" size="30" pInputText [(ngModel)]="E">
+    <button type="button" pButton (click)="Pop=false" label="Aceptar" style="cursor:pointer;float:left;"></button>
+</p-dialog>
+<br/><br/>

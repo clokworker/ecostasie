@@ -1,0 +1,116 @@
+<p-growl [value]="G"></p-growl>
+<p-menubar [model]="I" ></p-menubar>
+<p-confirmDialog header="Confirme" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+<br/><br/>
+<p-fieldset legend="Registro de empleado" styleClass="Legendary">
+    <p-overlayPanel #op (mouseleave)="op.hide()" (focusout)="op.hide()">
+        <p-dataList [value]="P2" >
+            <ng-template let-Pro pTemplate="item">
+                <button pButton type="button" (click)="One(Majora, Minora, FF, op, Pro[Field])" label="Elegir" class="ui-button-info"></button>
+                <label class="Usr">{{Pro[Field]}}</label>
+            </ng-template>
+        </p-dataList>
+    </p-overlayPanel>
+    <label class="Blk">Cotizacion: </label><label class="Red" >{{N}}</label><br/><label class="Usr">Nombre de cotizacion:</label><input type="text" id="CotL" pInputText [(ngModel)]="T" /><br/><br/>
+    <label class="Usr">Empresa:</label><p-dropdown [options]="Cl" [(ngModel)]="Clnt" [style]="{'width':'15rem','right':'0.4rem'}" (onChange)="Sel()"></p-dropdown><br/><br/>
+        <label class="Usr">Contacto:</label><p-dropdown [options]="Cc" [(ngModel)]="Cnt" [style]="{'width':'6rem','right':'0.4rem'}" (onChange)="Set()"></p-dropdown><br/><br/>
+        <label class="Usr">Cotizacion en:</label><p-toggleButton onLabel="Dolares" offLabel="Pesos " [(ngModel)]="Co" [style]="{'width':'5rem'}"></p-toggleButton><label class="Usr">Tipo de cambio:</label><input type="text" id="Coin" pInputText [(ngModel)]="Coin"/><br/><br/>
+    <p-dataTable [value]="X" [editable]="true" [responsive]="false" [style]="{'width':'40%'}" [tableStyle]="{'table-layout':'auto'}">
+        <p-column header="Datos del cliente" colspan="2" field="Ro" [editable]="false" [style]="{'width':'10%'}"></p-column>
+        <p-column field="fill" [editable]="true" styleClass="Headless" id="sd"></p-column>
+    </p-dataTable>
+    <br/><br/>
+    <div *ngFor='let A of B'>
+        <label class="Usr">Grupo:</label><input type="text" id="CotG" pInputText [(ngModel)]="A.Nom" /><br/><br/>
+        <!--Cant:'',Unit:'',Desc:'',CInicial:'',Dcto:'',Utilidad:'',Ctot:'',DeliveryC:'',DeliveryT:''-->
+        <p-dataTable [value]="A.D" [editable]="true">
+            <p-column styleClass="col-button" [style]="{'width':'2rem'}">
+                <ng-template pTemplate="header">
+                    <p-checkbox [(ngModel)]="value" binary="true"></p-checkbox>
+                </ng-template>
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="body" style="width:2rem">
+                    <p-checkbox [(ngModel)]="De[col.field]" (click)="Con.log(De[col.field])" binary="true" ></p-checkbox>
+                </ng-template>
+            </p-column>
+            <p-column field="Cant" header="Cantidad" [editable]="true" >
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="editor">
+                    <input class="facer" [(ngModel)]="De[col.field]" (ngModelChange)="Upper(De[col.field],A.ID,i)" [style]="{'width':'100%'}" required="true"/>
+                </ng-template>
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="body">
+                    {{ De[col.field]}}
+                </ng-template>
+            </p-column>
+            <p-column field="Unit" header="Unidad o Num Parte" styleClass="SmolOne" [editable]="true">
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="editor">
+                    <input class="facer" [(ngModel)]="De[col.field]" (ngModelChange)="Arr(P,De[col.field], Field)" (focus)="OPer($event, A.ID, i, op, P, 'PartNo', 'Unit')" [style]="{'width':'100%'}" required="true"/>
+                </ng-template>
+            </p-column>
+            <p-column field="Desc" header="Descripcion" styleClass="SmolOne" [editable]="true">
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="editor">
+                    <input class="facer" [(ngModel)]="De[col.field]" (ngModelChange)="Arr(P,De[col.field], Field)" (focus)="OPer($event, A.ID, i, op, P, 'ShortD', 'Desc')" [style]="{'width':'100%'}" required="true"/>
+                </ng-template>
+            </p-column>
+            <p-column field="Prov" header="Proveedor" styleClass="SmolOne" [editable]="true">
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="editor">
+                    <input class="facer" [(ngModel)]="De[col.field]" (ngModelChange)="Arr(PP,De[col.field], Field)" (focus)="OPer($event, A.ID, i, op, PP, 'Alias', 'Prov')" [style]="{'width':'100%'}" required="true"/>
+                </ng-template>
+            </p-column>
+            <p-column field="CInicial" header="Costo " [editable]="true" >
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="editor">
+                    <input class="facer" [(ngModel)]="De[col.field]" (ngModelChange)="Upper(De[col.field],A.ID,i)" [style]="{'width':'100%'}" required="true"/>
+                    <!--<p-radioButton name="groupname" value="pesos" label="Pesos" [(ngModel)]="selectedValue"></p-radioButton>
+                    <p-radioButton name="groupname" value="dolares" label="Dolares" [(ngModel)]="selectedValue"></p-radioButton>-->
+                </ng-template>
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="body">
+                    {{ Nani(De[col.field]) ? (De[col.field] | currency:'USD':true:'1.2-2') : 0}}
+                </ng-template>
+            </p-column>
+            <p-column field="Dcto" header="Descuento" styleClass="SmolOne" [editable]="true">
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="editor">
+                    <input class="facer" [(ngModel)]="De[col.field]" (ngModelChange)="Upper(De[col.field],A.ID,i)" [style]="{'width':'100%'}" required="true"/>
+                </ng-template>
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="body">
+                    {{ Nani(De[col.field]) ? ((De[col.field]/100) | percent:'1.2-2') : 0}}
+                </ng-template>
+            </p-column>
+            <p-column field="Utilidad" header="Utilidad" [editable]="true">
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="editor">
+                    <input class="facer" [(ngModel)]="De[col.field]" (ngModelChange)="Upper(De[col.field],A.ID,i)" [style]="{'width':'100%'}" required="true"/>
+                </ng-template>
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="body">
+                    {{ Nani(De[col.field]) ? ((De[col.field]/100) | percent:'1.2-2') : 0}}
+                </ng-template>
+            </p-column>
+            <p-column field="Ctot" header="Costo total" [editable]="false">
+                <ng-template let-col let-De="rowData" pTemplate="body">
+                    {{ Nani(De[col.field]) ? (De[col.field] | currency:'USD':true:'1.2-2') : 0}}
+                </ng-template>
+            </p-column>
+            <p-column field="DeliveryC" header="Gastos de envio" [editable]="true">
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="editor">
+                    <input class="facer" [(ngModel)]="De[col.field]" (ngModelChange)="Upper(De[col.field],A.ID,i)" [style]="{'width':'100%'}" required="true"/>
+                </ng-template>
+                <ng-template let-col let-De="rowData" let-i="rowIndex" pTemplate="body">
+                    {{ Nani(De[col.field]) ? (De[col.field] | currency:'USD':true:'1.2-2') : 0}}
+                </ng-template>
+            </p-column>
+            <p-column field="DeliveryT" header="Tiempo de Entrega" [editable]="true">
+                <ng-template let-col let-De="rowData" pTemplate="editor">
+                    <input class="facer" [(ngModel)]="De[col.field]" [style]="{'width':'100%'}" required="true"/>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+        <br/><br/>
+            <button pButton type="button" label="Agregar Linea" (click)="Prodder(A.ID)"></button><br/><br/>
+    </div>
+    <button pButton type="button" label="Agregar Grupo" (click)="Modder()"></button>
+    <br/><br/>
+    <label class="Usr">Notas:</label>
+    <p-chips [(ngModel)]="Nt"></p-chips>
+    <br/>
+    <label class="Usr">Terminos Comerciales:</label>
+    <br/>
+    <p-chips [(ngModel)]="Tc"></p-chips>
+    <br/>
+    <button pButton type="button" label="Aceptar" (click)="Maker()"></button>
+</p-fieldset>

@@ -1,0 +1,60 @@
+<p-growl [value]="G"></p-growl>
+<p-menubar [model]="I" ></p-menubar>
+<p-confirmDialog header="Confirme" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+<br/><br/>
+<p-fieldset legend="Catalogo de proovedores">
+    <p-dataTable [value]="Pro">
+        <p-column styleClass="col-button">
+            <ng-template pTemplate="header">
+                <button type="button" pButton (click)="export()" icon="fa-file-text"></button><label id="Cel">Exportar</label>
+            </ng-template>
+            <ng-template let-pro="rowData" pTemplate="body">
+                <button type="button" pButton (click)="EditPro(pro)" icon="fa fa-pencil"></button>
+                <button type="button" pButton (click)="ElimPro(pro)" icon="fa fa-trash"></button>
+            </ng-template>
+        </p-column>
+        <p-column field="Alias" header="Nombre"></p-column>
+        <p-column field="Direccion" header="Direccion"></p-column>
+        <p-column field="Estado" header="Estado"></p-column>
+        <p-column field="Contactos" header="Contactos"></p-column>
+        <p-column field="RFC" header="RFC"></p-column>
+        <!--<ng-template let-emp pTemplate="item">
+            <div style="padding:3px" class="ui-g-12 ui-md-3">
+                <p-panel [header]="emp.Name" [style]="{'text-align':'center'}">
+                    <div class="emp-detail">{{emp.Position}} - {{emp.Dept}}</div>
+                    <hr class="ui-widget-content" style="border-top:0">
+                    <i class="fa fa-pencil" (click)="EditEmp(emp)" style="cursor:pointer"></i>
+                    <i class="fa fa-trash" (click)="ElimEmp(emp)" style="cursor:pointer"></i>
+                </p-panel>
+            </div>
+        </ng-template>-->
+    </p-dataTable>
+</p-fieldset>
+<br/><br/>
+<p-fieldset legend="Registro de Proovedores" styleClass="Legendary">
+    <div id='ImagineAgain'>
+        <label class="Usr">Alias:</label><input type="text" class="User" pInputText [(ngModel)]="Nm" (ngModelChange)="Upper($event)"/>
+        <br/><br/>
+        <label class="Usr">Razon:</label><input type="text" class="User" pInputText [(ngModel)]="r" (ngModelChange)="Upper($event)"/>
+        <br/><br/>
+        <label class="Usr">Direccion:</label><input type="text" class="User" pInputText [(ngModel)]="Dir" (ngModelChange)="Upper($event)"/>
+        <br/><br/>
+        <label class="Usr">Ciudad:</label><input type="text" class="User" pInputText [(ngModel)]="C" (ngModelChange)="Upper($event)"/>
+        <br/><br/><br/>
+        <label class="Usr">Estado:</label><p-dropdown [options]="States" [(ngModel)]="Estado" [style]="{'width':'150px'}" filter="filter" (ngModelChange)="Upper($event)"></p-dropdown>
+        <label class="Usr">CP:</label><p-inputMask [(ngModel)]="CP" mask="99999" (ngModelChange)="Upper($event)"></p-inputMask>
+        <label class="Usr">RFC:</label><p-inputMask [(ngModel)]="RFC" mask="aa-a-*-99-99-99-***" (ngModelChange)="Upper($event)"></p-inputMask>
+        <br/><br/>
+        <div class="ui-g" *ngFor='let A of B'>
+            <div class="ui-g-12"><label id="Cel">Contacto {{A.ID +1}}</label></div>
+            <div class="ui-g-4 ui-md-6 ui-lg-4"><label id="Cel">Nombre:</label><input type="text" id="Cont2"[(ngModel)]="Cont[A.ID]" (ngModelChange)="Upper($event)"/></div>
+            <div class="ui-g-4 ui-md-6 ui-lg-4">
+                <div *ngFor='let C of A.Tel'><label id="Cel">Telefono:</label><input type="text" id="Cont2"[(ngModel)]="C.Tel" (ngModelChange)="Upper($event)"/></div><button type="button" pButton (click)="AddT(A.ID)" icon="fa fa-phone"></button></div>
+            <div class="ui-g-4 ui-md-6 ui-lg-4">
+                <div *ngFor='let C of A.Mail'><label id="Cel">Correo:</label><input type="text" id="Cont2"[(ngModel)]="C.Mail" (ngModelChange)="Upper($event)"/></div><button type="button" pButton (click)="AddM(A.ID)" icon="fa fa-envelope"></button></div>
+        </div>
+        <!--<label class="Usr">Contactos(Nombre-Tel):</label><p-chips [(ngModel)]="Cont" (ngModelChange)="Upper($event)"></p-chips>--><button type="button" pButton (click)="AddC()" icon="fa fa-user-plus"></button><label id="Cel">Agregar contacto</label>
+        <br/><br/>
+        <button pButton type="button" label="Aceptar" (click)="Registerer()" [disabled]="ena"></button>
+    </div>
+</p-fieldset>
