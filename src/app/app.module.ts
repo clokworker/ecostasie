@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import {ButtonModule, GrowlModule, FileUploadModule, FieldsetModule, ToggleButtonModule, InputMaskModule, InputTextModule, SelectButtonModule, CalendarModule, ToolbarModule, DataGridModule, MenubarModule, PanelModule, ConfirmDialogModule, DataTableModule, DropdownModule, CheckboxModule, DataListModule, DialogModule, InputTextareaModule, ListboxModule, OverlayPanelModule, RadioButtonModule, ChipsModule} from 'primeng/primeng';
-import { Routing } from './Router';
 import {Login} from './Log';
 import {Main} from './Main';
 import {Users} from './Usr';
@@ -30,7 +29,7 @@ const Aroute: Routes =[
 ];
 @NgModule({
   declarations: [
-    Routing, Login, Main, Users, Provs, Prods, Cats, Client, Cot, Explorer
+    Login, Main, Users, Provs, Prods, Cats, Client, Cot, Explorer
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
@@ -40,6 +39,6 @@ const Aroute: Routes =[
     RouterModule.forRoot(Aroute)
   ],
   providers: [],
-  bootstrap: [Routing]
+  bootstrap: []
 })
 export class AppModule { }
